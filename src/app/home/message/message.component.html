@@ -1,0 +1,9 @@
+<div #message id="message" class="w-full h-full overflow-y-auto overflow-x-hidden sm:px-6  px-3 pt-3 pb-3 ">
+    <ng-template ngFor let-item [ngForOf]="chatService.listMessage">
+        <div class="w-full flex " [ngClass]="{'justify-start':item.senderId !== id,'justify-end':item.senderId == id}">
+            <div class=" max-w-3/4 mx-4 my-2 p-2 rounded-lg break-all" [ngClass]="{'bg-gray-300':item.senderId !== id,'bg-green-300':item.senderId == id}">
+                {{item.content}} </div>
+        </div>
+    </ng-template> 
+
+</div>

@@ -1,0 +1,36 @@
+<div #conversation id="conversation"
+  class="conversation w-full h-full overflow-y-auto overflow-x-hidden pt-1 px-2 sm:px-3 pb-2">
+  <h5 class="text-gray-400">Cuộc hội thoại</h5>
+  <ng-template ngFor let-item [ngForOf]="lstData">
+    <div [ngClass]="{'bg-green-400 text-white shadow':item.conversationId === activeElement}"
+      class="group mb-1 flex items-center justify-between py-3 px-3  hover:bg-green-500 hover:text-white rounded "
+      (click)="getIdConversation(item)">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 h-10 w-10">
+          <img class="h-10 w-10 rounded-full"
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+            alt="">
+        </div>
+        <div class="ml-4">
+          <div
+            [ngClass]="{'text-white':item.conversationId === activeElement,'text-gray-900':!item.conversationId === activeElement}"
+            class="text-sm font-medium text-white  group-hover:text-white">
+            {{item.nameConversation}}
+          </div>
+          <div class="text-sm group-hover:text-white"
+            [ngClass]="{'text-gray-50':item.conversationId === activeElement == true,'text-gray-500':!item.conversationId === activeElement}">
+            {{item.lastMessage}}
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center flex-col">
+        <div>
+          {{item.createTimeLastMessage | customDate}}
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

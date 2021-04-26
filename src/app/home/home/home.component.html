@@ -1,0 +1,206 @@
+<div class=" h-screen w-screen flex overflow-hidden">
+  <!-- cột trái -->
+  <div class="h-screen w-screen sm:w-1/4  bg-green-50 shadow  overflow-hidden sm:flex flex flex-col "
+    [ngClass]="{'hidden':isShowConversation}">
+    <!-- thông tin người đáng đăng nhập -->
+    <div class="px-3 pt-3 pb-3 sm:px-6 w-full bg-green-600">
+      <div class="flex justify-between">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 h-10 w-10">
+            <img class="h-10 w-10 rounded-full"
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+              alt="">
+          </div>
+          <div class="ml-4">
+            <div class="text-sm font-medium text-white">
+              {{user.name}}
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-end">
+          <div class=" flex items-center  justify-center h-10 w-10  text-white cursor-pointer">
+            <button type="button"
+              class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500"
+              (click)="showConversation()">
+              <i class="fas fa-envelope"></i>
+            </button>
+
+          </div>
+          <div class=" flex items-center justify-center h-10 w-10  text-white cursor-pointer">
+            <button type="button"
+              class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500">
+              <i class="fas fa-user"></i>
+            </button>
+
+          </div>
+
+          <div class="inline-flex items-center justify-center h-10 w-10 text-white cursor-pointer group relative">
+            <button type="button"
+              class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <ul class="bg-white w-28 shadow rounded-md absolute hidden mt-28 mr-9 pt-1 text-gray-700 group-hover:block">
+              <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Profile</li>
+              <li class="rounded-sm px-3 text-red-400 py-1 hover:bg-gray-100" (click)="logOut()">Đăng xuất</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m-3.5 bg-white rounded shadow p-1 flex" (click)="showSearch()">
+      <span class="w-auto flex justify-end items-center text-gray-500 p-2">
+        <i class="fas fa-search"></i>
+      </span>
+      <form (submit)="getPhone(phoneNumber)">
+        <input
+          class="w-full pr-16 border-none focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+          placeholder="Tìm kiếm người dùng" name="phoneNumber" type="text" [(ngModel)]="phoneNumber">
+      </form>
+    </div>
+    <app-search [phonenumber]="phoneNumber"></app-search>
+    <!-- danh sách conversation-->
+    <div class="w-full flex-auto overflow-hidden ">
+      <app-conversation (ConversationId)="onGetMessage($event)"></app-conversation>
+    </div>
+  </div>
+  <!-- cột phải -->
+  <div [ngClass]="{'hidden':!isShowConversation}" class="w-full h-screen sm:w-3/4  sm:block overflow-hidden">
+    <div class="w-full h-full relative overflow-hidden" *ngIf="Conversation">
+      <div class="flex flex-col w-full h-full overflow-hidden">
+        <!-- header -->
+        <div class="px-3 pt-3 pb-3 sm:px-6 w-full  bg-green-300">
+          <div class="flex justify-between">
+            <div class=" flex items-center sm:hidden justify-center h-10 w-10  text-white cursor-pointer">
+              <button type="button"
+                class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500"
+                (click)="onToggle()">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+
+            </div>
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-10 w-10">
+                <img class="h-10 w-10 rounded-full"
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+                  alt="">
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-medium text-gray-900">
+                  {{Conversation.nameConversation}}
+                </div>
+                <div class="text-sm text-gray-500">
+                  <!-- {{user.email}} -->
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-end">
+              <!-- icon -->
+
+              <div class="flex items-center justify-center h-10 w-10  text-white cursor-pointer" (click)="audioCall()">
+                <button type="button"
+                  class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500">
+                  <i class="fas fa-phone-alt"></i>
+                </button>
+
+              </div>
+              <div class="flex items-center justify-center h-10 w-10  text-white cursor-pointer" (click)="videoCall()">
+                <button type="button"
+                  class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500">
+                  <i class="fas fa-video"></i>
+                </button>
+
+              </div>
+              <div class="flex items-center justify-center h-10 w-10  text-white cursor-pointer">
+
+                <button type="button"
+                  class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500">
+                  <i class="fas fa-info"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- body-->
+        <div class=" w-full  flex-auto overflow-hidden pt-2">
+          <app-message [id]="user.id"></app-message>
+
+
+        </div>
+        <!--footer-->
+        <div class="w-full  bg-green-300 mt-1">
+          <form (ngSubmit)="sendMessage(Content)">
+            <div class="flex justify-between">
+              <div class="flex items-center justify-center h-50 w-50  text-white cursor-pointer">
+                <button type="button"
+                  class="ml-2 inline-block rounded-lg text-4xl leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500">
+                  <i class="fas fa-smile-wink"></i>
+                </button>
+
+              </div>
+              <input type="text"
+                class="flex-grow m-2 py-3  mr-1 rounded-full border border-gray-300 bg-gray-200 resize-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                rows="1" placeholder="Type a message" name="Content" [(ngModel)]="Content" autocomplete="off" />
+              <!-- <input class="focus:ring-2 focus:ring-green-600 focus:outline-none "> -->
+              <div class="flex items-center justify-center h-50 w-50  text-white cursor-pointer mr-3">
+                <button type="button"
+                  class="ml-2 inline-block rounded-lg text-4xl leading-none py-2 px-3 focus:outline-none text-white hover:bg-green-500 focus:bg-green-500"
+                  (click)="sendMessage(Content)">
+                  <i class="fab fa-telegram-plane"></i>
+                </button>
+
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="showModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative sm:w-1/5 my-6 mx-auto max-w-sm">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+      <!--header-->
+      <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+        <h3 class="text-3xl font-semibold">
+          Call video
+        </h3>
+        <button
+          class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+          (click)="rejectCall()">
+          <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            ×
+          </span>
+        </button>
+      </div>
+      <!--body-->
+      <div class="relative p-6 flex-auto">
+        <h4 class="w-full">
+          {{callingInfo.name}}
+        </h4>
+        <h5 class="flex items-center justify-center w-full">
+          {{callingInfo.content}}
+        </h5>
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+        <button
+          class="text-green-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button" (click)="acceptCall()">
+          Accept
+        </button>
+        <button
+          class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button" (click)="rejectCall()">
+          Reject
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>

@@ -1,0 +1,75 @@
+<div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+<div class="relative sm:w-1/5 my-6 mx-auto max-w-sm">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+            <h3 class="text-3xl font-semibold">
+                Call video
+            </h3>
+            <button
+                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                (click)="rejectCall()">
+                <span
+                    class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                    ×
+                </span>
+            </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+            <h4 class="w-full">
+                Call declined
+            </h4>
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+            <button
+                class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button" (click)="close()">
+                Close
+            </button>
+
+        </div>
+    </div>
+</div>
+</div>
+    <div class="h-screen w-screen p-1 sm:flex sm:flex-col  sm:items-center justify-center" >
+        <div class="w-full  h-full sm:w-3/4 sm:h-3/4 p-3 rounded">
+            <div class="w-full  h-full  flex flex-col ">
+                <div class="flex-auto ">
+                    <div class="w-full h-full relative" >
+                        <div class="w-full h-full" >
+                            <video  id="remote-video" class="remotevideo w-full h-full" controls autoplay></video>
+                        </div>
+                        <div class="absolute top-0 left-0 right-2/3 bottom-2/3 sm:bottom-1/4 sm:top-2/4 sm:right-0 sm:left-3/4" >
+                            <div class="w-full h-full">                             
+                                <video id="local-video" class="localvideo w-full h-full" controls autoplay muted></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3 flex items-center justify-center">
+                    <div class=" flex items-center  justify-center h-10 w-10  text-yellow-500 cursor-pointer" (click)="exitShareScreen()">
+                        <button *ngIf = "isScreenSharingDisabled === true" type="button" class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-yellow-500 hover:bg-green-500 focus:bg-green-500">
+                          <i class="fas fa-ban"></i>
+                        </button>
+                        
+                      </div>
+                      <div *ngIf = "isScreenSharingEnabled === true" class=" flex items-center  justify-center h-10 w-10  text-green-500 cursor-pointer" (click)="shareScreen()">
+                        <button type="button"  class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-green-500 hover:text-white focus:text-white hover:bg-green-500 focus:bg-green-500">
+                            <i class="far fa-clone"></i>
+                        </button>
+                        
+                      </div>
+                      <div class=" flex items-center  justify-center h-10 w-10  text-red-500 cursor-pointer" (click)="endCall()">
+                        <button type="button" class="ml-2 inline-block rounded-lg font-medium leading-none py-2 px-3 focus:outline-none text-red-500 hover:bg-green-500 focus:bg-green-500">
+                          <i class="fas fa-phone"></i>
+                        </button>
+                        
+                      </div>
+                </div>
+            </div>
+        </div>
+           
+    </div>
